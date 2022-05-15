@@ -28,7 +28,7 @@ class Solution {
         }
 
         // we skip the current nums[index] number, and move to the next index
-        subsetsHelper(index + 1, currentSubset);
+        
 
         // we add the current number nums[index] to the current subset.
         currentSubset.add(nums[index]);
@@ -36,5 +36,8 @@ class Solution {
         // after the recursive call we remove the current number 
         // (last element in the list) to restore the current subset.
         currentSubset.remove(currentSubset.size() - 1);
+        subsetsHelper(index + 1, currentSubset);
+       
+        
     }
 }
