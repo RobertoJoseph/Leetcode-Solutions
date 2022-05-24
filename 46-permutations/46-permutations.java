@@ -1,25 +1,21 @@
 class Solution {
-       static List<List<Integer>> ans;
-    public  List<List<Integer>> permute(int[] nums) {
-        ans = new ArrayList<>();
-        ArrayList<Integer> newNums = new ArrayList<>();
-        for (int x : nums) newNums.add(x);
-        permuteHelper(newNums, new ArrayList<>());
-        return ans;
+      public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
+        helperFunction(result, current, nums);
+        return result;
     }
-
-    public  void permuteHelper(ArrayList<Integer> nums,
-                                     ArrayList<Integer> currentSubset) {
-        if (nums.size() == 0) {
-            ans.add(new ArrayList<>(currentSubset));
-            return;
+    public void helperFunction(List<List<Integer>> result, List<Integer> current, int [] nums) {
+       if (current.size() == nums.length) {
+           result.add(new ArrayList<>(current));
+           return;
         }
-        for (int i = 0; i < nums.size(); i++) {
-            ArrayList ArrList2 = (ArrayList) nums.clone();
-            ArrList2.remove(ArrList2.get(i)); //Remove the object
-            currentSubset.add(nums.get(i));
-            permuteHelper(ArrList2, currentSubset);
-            currentSubset.remove(currentSubset.size() - 1);
+        for (int i=0; i<nums.length; i++) {
+            if (current.contains(nums[i])) continue;
+            current.add(nums[i]);
+            helperFunction(result, current, nums);
+            current.remove(current.size()-1);
+            
         }
     }
 }
