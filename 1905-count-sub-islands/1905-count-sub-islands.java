@@ -33,10 +33,10 @@ class Solution {
       
         grid2[x][y] = 0;
         boolean isSubisland = true;
-
-        for(int i = 0; i < 4; i++){
-            isSubisland = dfs(grid1, grid2, x + dirs[i], y + dirs[i + 1]) &isSubisland;
-        }
+        isSubisland = dfs(grid1, grid2, x +1, y ) &isSubisland;
+             isSubisland = dfs(grid1, grid2, x -1, y) &isSubisland;
+             isSubisland = dfs(grid1, grid2, x , y + 1) &isSubisland;
+             isSubisland = dfs(grid1, grid2, x , y - 1) &isSubisland;
         
         return isSubisland;
     }
