@@ -1,69 +1,40 @@
 class Solution {
-     int[][] count;
-    List<List<Integer>> list; 
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
-     list = new ArrayList<>();
-      int r = heights.length;
-        int c = heights[0].length;
-       count = new int[r][c];
-        pacific(heights, count);
-        atlantic(heights, count);
-       for(int i = 0;i<r;i++){
-         for(int j = 0;j<c;j++){
-           if(count[i][j]==2){
-              List<Integer> arr = new ArrayList<>();
-             arr.add(i);
-             arr.add(j);
-             list.add(new ArrayList<>(arr));
-           }
-         }
-       }
-        return list;
-    }
-  
-    public void dfs(int[][] grid, boolean[][] visited, int r, int c, int p,  int[][] count){
-        if(r>=grid.length||r<0|c>=grid[0].length||c<0)return;
-        if(visited[r][c]==true || grid[r][c]<p)return;
-        
-        visited[r][c] = true;
-        count[r][c] += 1;
-        p = grid[r][c];
-        dfs(grid, visited, r-1, c, p, count);
-       dfs(grid, visited, r+1, c, p, count);
-       dfs(grid, visited, r, c-1, p, count);
-       dfs(grid, visited, r, c+1, p, count);
+        // if the neighboring cell's height is less than or equal to the current cell's height.
+        // Water can flow from any cell adjacent to an ocean into the ocean.
+        List<List<Integer>> res = new ArrayList<>();
+        int ROW = heights.length;
+        int COL = heights[0].length;
+        boolean[][] pac = new boolean[ROW][COL];
+        boolean[][] alt = new boolean[ROW][COL];
+        // ROW
+        for (int i = 0; i < ROW; i++) {
+            // from pac to atl, upper left to down
+            pacificAtlanticDfs(i, 0, pac, heights, heights[i][0]);
+            // from atl to pac, bottom right to up
+            pacificAtlanticDfs(i, COL - 1, alt, heights, heights[i][COL - 1]);
+        }
+        for (int j = 0; j < COL; j++) {
+            // from pac to atl, upper left to right
+            pacificAtlanticDfs(0, j, pac, heights, heights[0][j]);
+            // from atl to pac, bottom right to left
+            pacificAtlanticDfs(ROW - 1, j, alt, heights, heights[ROW - 1][j]);
+        }
 
-        
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                if (pac[i][j] && alt[i][j]) res.add(new ArrayList<>(Arrays.asList(i,j)));
+            }
+        }
+        return res;
     }
-    public void pacific(int[][] heights, int[][] count){
-        int r = heights.length;
-        int c = heights[0].length;
-       boolean[][] visited = new boolean[r][c];
-       for(int i=0;i<c;i++){
-            if(visited[0][i]==false){
-                dfs(heights,visited,0,i,-1, count);
-            }
-        }
-        for(int i=0;i<r;i++){
-            if(visited[i][0]==false ){
-                dfs(heights,visited,i,0,-1, count);
-            }
-        }
-    }
-  
-   public void atlantic(int[][] heights, int[][] count){
-        int r = heights.length;
-        int c = heights[0].length;
-       boolean[][] visited = new boolean[r][c];
-        for(int i=0;i<r;i++){
-            if(visited[i][c-1]==false){
-                dfs(heights,visited,i,c-1, -1, count);
-            }
-        }
-        for(int i=0;i<c;i++){
-            if(visited[r-1][i]==false){
-                dfs(heights,visited,r-1,i, -1, count);
-            }
-        }
+
+    public void pacificAtlanticDfs(int i, int j, boolean[][] isVisited, int[][] heights, int prevHeight) {
+        if (i < 0 || i >= heights.length || j < 0 || j >= heights[0].length || heights[i][j] < prevHeight || isVisited[i][j]) return;
+        isVisited[i][j] = true;
+        pacificAtlanticDfs(i + 1, j, isVisited, heights, heights[i][j]);
+        pacificAtlanticDfs(i - 1, j, isVisited, heights, heights[i][j]);
+        pacificAtlanticDfs(i, j + 1, isVisited, heights, heights[i][j]);
+        pacificAtlanticDfs(i, j - 1, isVisited, heights, heights[i][j]);
     }
 }
