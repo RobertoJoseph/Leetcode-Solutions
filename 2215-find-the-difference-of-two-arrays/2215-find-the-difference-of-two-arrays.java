@@ -35,10 +35,9 @@ class Solution {
         }
         ArrayList<Integer> list1 = new ArrayList<>();
         ArrayList<Integer> list2 = new ArrayList<>();
-        int index1 = removeduplicates(nums1, nums1.length);
-        int index2 = removeduplicates(nums2, nums2.length);
 
-        for (int i = 0; i < index1; i++) {
+
+        for (int i = 0; i < nums1.length; i++) {
             if (!ts.contains(nums1[i])) {
                 if (!list1.contains(nums1[i]))
                     list1.add(nums1[i]);
@@ -48,7 +47,7 @@ class Solution {
         for (int x : nums1) {
             ts2.add(x);
         }
-        for (int i = 0; i < index2; i++) {
+        for (int i = 0; i < nums2.length; i++) {
             if (!ts2.contains(nums2[i])) {
                 if (!list2.contains(nums2[i]))
                     list2.add(nums2[i]);
