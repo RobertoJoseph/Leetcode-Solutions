@@ -1,27 +1,29 @@
 class Solution {
     
-    public static String minRemoveToMakeValid(String s) {
-        Stack<Integer> st = new Stack<>();
-        char[] chars = s.toCharArray();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') st.push(i);
-            else if (s.charAt(i) == ')') {
-                if (st.isEmpty())
-                    chars[i] = '#';
-                else
-                    st.pop();
-            }
-        }
-        while (!st.isEmpty()) {
-            chars[st.pop()] = '#';
-        }
+    
+    public  String minRemoveToMakeValid(String s) {
+        int opens = 0;
+        char[] a = s.toCharArray();
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == '#') continue;
-            ;
-            sb.append(chars[i]);
+        for (char x : a) {
+            if (x == '(') opens++;
+            else if (x == ')') {
+                if (opens == 0) continue;
+                opens--;
+            }
+            sb.append(x);
         }
-        return sb.toString();
+        StringBuilder rs2 = new StringBuilder();
+
+        for (int i = sb.length() - 1; i >= 0; i--) {
+            if (sb.charAt(i) == '(' && opens-- > 0) {
+                continue;
+            }
+            rs2.append(sb.charAt(i));
+        }
+
+        return rs2.reverse().toString();
+
     }
 
 }
