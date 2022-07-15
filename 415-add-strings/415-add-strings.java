@@ -4,25 +4,18 @@ class Solution {
         int i = num1.length()-1;
         int j = num2.length()-1;
         int carry = 0;
-        String result= "";
-        
-        while(i >= 0 || j >= 0 || carry == 1) {
-            int sum= carry;
-            if(i >= 0)
-                sum +=num1.charAt(i) - '0';
-            if(j >= 0)
-                sum+= num2.charAt(j) - '0';
-            
-            carry = 0;
-            if(sum > 9) {
-                carry = 1;
-                result = sum%10 + result;
-            } else {
-                result = sum + result;
-            }
+        StringBuilder sb = new StringBuilder();
+        while(i>=0||j>=0){
+            int sum = carry;
+            if(i>=0)sum+=num1.charAt(i)-'0';
+            if(j>=0)sum+=num2.charAt(j)-'0';
+            sb.append(sum%10);
+            carry = sum/10;
             i--;
             j--;
         }
-        return result;
+        if(carry!=0)sb.append(carry);
+    return sb.reverse().toString();
+     
     }
 }
