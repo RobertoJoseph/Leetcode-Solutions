@@ -7,13 +7,12 @@ class Solution {
         String result= "";
         
         while(i >= 0 || j >= 0 || carry == 1) {
-            int x = 0;
-            int y = 0;
+            int sum= carry;
             if(i >= 0)
-                x = num1.charAt(i) - '0';
+                sum +=num1.charAt(i) - '0';
             if(j >= 0)
-                y = num2.charAt(j) - '0';
-            int sum = x + y + carry;
+                sum+= num2.charAt(j) - '0';
+            
             carry = 0;
             if(sum > 9) {
                 carry = 1;
