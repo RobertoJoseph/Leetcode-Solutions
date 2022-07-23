@@ -16,9 +16,14 @@ class SparseVector {
 
         // iterate through each non-zero element in this sparse vector
         // update the dot product if the corresponding index has a non-zero value in the other vector
-        for (Integer i : this.mapping.keySet()) {
-            if (vec.mapping.containsKey(i)) {
-                result += this.mapping.get(i) * vec.mapping.get(i);
+        // for (Integer i : this.mapping.keySet()) {
+        //     if (vec.mapping.containsKey(i)) {
+        //         result += this.mapping.get(i) * vec.mapping.get(i);
+        //     }
+        // }
+        for(Integer i:vec.mapping.keySet()){
+            if(this.mapping.containsKey(i)){
+                result +=this.mapping.get(i)*vec.mapping.get(i);
             }
         }
         return result;
