@@ -39,7 +39,7 @@ class Solution {
 
     // select a random pivot_index
     Random random_num = new Random();
-    int pivot_index = left + random_num.nextInt(right - left); 
+    int pivot_index = right;
     
     pivot_index = partition(left, right, pivot_index);
 
