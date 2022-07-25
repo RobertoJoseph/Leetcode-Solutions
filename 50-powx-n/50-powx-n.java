@@ -7,11 +7,12 @@ class Solution {
         }
         double ans = 1;
         double current_product = x;
-        for (long i = N; i > 0; i /= 2) {
-            if ((i % 2) == 1) {
+            while(N>0){
+            if ((N % 2) == 1) {
                 ans = ans * current_product;
             }
             current_product = current_product * current_product;
+                N= N/2;
         }
         return ans;
     }
