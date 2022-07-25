@@ -16,7 +16,7 @@ class Solution {
     int store_index = left;
 
     // 2. move all smaller elements to the left
-    for (int i = left; i <= right; i++) {
+    for (int i = left; i < right; i++) {
       if (this.nums[i] < pivot) {
         swap(store_index, i);
         store_index++;
