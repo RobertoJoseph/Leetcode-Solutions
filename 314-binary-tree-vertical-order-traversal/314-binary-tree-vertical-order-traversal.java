@@ -29,8 +29,9 @@ class Solution {
           columnTable.put(column, new ArrayList<Integer>());
         }
         columnTable.get(column).add(root.val);
-
+        if(root.left!=null)
         queue.offer(new Pair(root.left, column - 1));
+          if(root.right!=null)
         queue.offer(new Pair(root.right, column + 1));
       }
     }
