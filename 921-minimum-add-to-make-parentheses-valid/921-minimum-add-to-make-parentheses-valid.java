@@ -10,6 +10,6 @@ class Solution {
             }
         }
 
-        return ans + bal;
+        return ans+bal;
     }
 }
