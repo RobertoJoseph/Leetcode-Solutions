@@ -1,30 +1,36 @@
 class Solution {
-    
-    public  String getPattern(String word) {
-        StringBuilder stb = new StringBuilder();
-        char[] chars = word.toCharArray();
-        for (int i = 0; i < chars.length - 1; i++) {
-           
-            stb.append( (char)((chars[i + 1] - chars[i] + 26) % 26));
+    // Create a hash value
+    String getHash(String s) {
+        char[] chars = s.toCharArray();
+        StringBuilder hashKey = new StringBuilder();
+        
+        for (int i = 1; i < chars.length; i++) {
+            hashKey.append((char) ((chars[i] - chars[i - 1] + 26)%26  ));
         }
-        return stb.toString();
+        
+        return hashKey.toString();
     }
-  
-    public List<List<String>> groupStrings(String[] strings) {
-     
-        List<List<String>>result = new LinkedList<>();
-        Map<String,List<String>>map = new HashMap<>();
     
-        for(String word : strings){
-            String pattern = getPattern(word);
-            if(!map.containsKey(pattern))
-                map.put(pattern,new LinkedList<>());
-            map.get(pattern).add(word);
+    public List<List<String>> groupStrings(String[] strings) {
+        Map<String, List<String>> mapHashToList = new HashMap<>();
+        
+        // Create a hash_value (hashKey) for each string and append the string
+        // to the list of hash values i.e. mapHashToList["cd"] = ["acf", "gil", "xzc"]
+        for (String str : strings ) {
+            String hashKey = getHash(str);
+            if (mapHashToList.get(hashKey) == null) {
+                mapHashToList.put(hashKey, new ArrayList<>());
+            } 
+            mapHashToList.get(hashKey).add(str);
         }
-        for(List<String>group:map.values()){
-            result.add(group);
+        
+        // Iterate over the map, and add the values to groups
+        List<List<String>> groups = new ArrayList<>();
+        for (List<String> group : mapHashToList.values()) {
+            groups.add(group);
         }
-        return result;
+        
+        // Return a list of all of the grouped strings
+        return groups;
     }
 }
-  
