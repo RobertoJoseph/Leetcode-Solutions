@@ -3,9 +3,11 @@ class Solution {
     public  String getPattern(String word) {
         StringBuilder stb = new StringBuilder();
         char[] chars = word.toCharArray();
-         for (int i = 1; i < chars.length; i++) {
-            stb.append((char) ((chars[i] - chars[i - 1] + 26)%26  ));
+        for (int i = 0; i < chars.length - 1; i++) {
+            int x = (chars[i + 1] - chars[i] + 26) % 26;
+            stb.append( (char)(x));
         }
+        System.out.println(stb);
         return stb.toString();
     }
   
