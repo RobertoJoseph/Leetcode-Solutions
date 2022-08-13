@@ -4,8 +4,8 @@ class Solution {
         StringBuilder stb = new StringBuilder();
         char[] chars = word.toCharArray();
         for (int i = 0; i < chars.length - 1; i++) {
-            int x = (chars[i + 1] - chars[i] + 26) % 26;
-            stb.append( (char)(x));
+           
+            stb.append( (char)((chars[i + 1] - chars[i] + 26) % 26));
         }
         return stb.toString();
     }
