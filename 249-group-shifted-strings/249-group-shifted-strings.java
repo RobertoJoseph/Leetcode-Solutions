@@ -5,7 +5,7 @@ class Solution {
         StringBuilder hashKey = new StringBuilder();
         
         for (int i = 1; i < chars.length; i++) {
-            hashKey.append((char) ((chars[i] - chars[i - 1] + 26) % 26 ));
+            hashKey.append((char) ((chars[i] - chars[i - 1] + 26)%26  ));
         }
         
         return hashKey.toString();
