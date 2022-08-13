@@ -7,7 +7,6 @@ class Solution {
             int x = (chars[i + 1] - chars[i] + 26) % 26;
             stb.append( (char)(x));
         }
-        System.out.println(stb);
         return stb.toString();
     }
   
