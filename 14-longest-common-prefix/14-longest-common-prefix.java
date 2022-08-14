@@ -1,23 +1,24 @@
 class Solution {
     
-    public static boolean checkAll(String[] strs, String start) {
+    public static boolean checkAll(String[] strs, StringBuilder start) {
         for (int i = 0; i < strs.length; i++) {
-            if (!strs[i].startsWith(start)) return false;
+            if (!strs[i].startsWith(start.toString())) return false;
         }
         return true;
 
     }
 
     public static String longestCommonPrefix(String[] strs) {
-        String result = "";
-        String x = "";
+        StringBuilder result = new StringBuilder();
+        StringBuilder x =new StringBuilder();
         int i = 0;
         while (i < strs[0].length()) {
-            x += strs[0].charAt(i); //F
-            if (checkAll(strs, x)) result = result + strs[0].charAt(i);
+         
+            x.append(strs[0].charAt(i));
+            if (checkAll(strs, x)) result.append(strs[0].charAt(i));
             i++;
         }
-        return result;
+        return result.toString();
 
     }
 }
