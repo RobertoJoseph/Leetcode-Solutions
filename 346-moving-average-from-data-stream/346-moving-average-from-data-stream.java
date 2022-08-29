@@ -1,6 +1,6 @@
 class MovingAverage {
   int size, windowSum = 0, count = 0;
-  Deque queue = new ArrayDeque<Integer>();
+  Queue<Integer> queue = new LinkedList<>();
 
   public MovingAverage(int size) {
     this.size = size;
