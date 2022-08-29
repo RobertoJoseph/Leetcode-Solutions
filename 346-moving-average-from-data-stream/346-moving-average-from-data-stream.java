@@ -1,25 +1,19 @@
 class MovingAverage {
-    int size;
-    Queue<Integer>queue;
-    public MovingAverage(int size) {
-        this.size=size;
-          queue = new LinkedList<>();
-    }
-    
-    public double next(int val) {
-        double result =0;
-        queue.add(val);
-        while(queue.size()>size)queue.poll();
-        for(Integer item : queue){
-            result = result+item;
-        }
-        return result/queue.size();
-        
-    }
-}
+  int size, windowSum = 0, count = 0;
+  Deque queue = new ArrayDeque<Integer>();
 
-/**
- * Your MovingAverage object will be instantiated and called as such:
- * MovingAverage obj = new MovingAverage(size);
- * double param_1 = obj.next(val);
- */
+  public MovingAverage(int size) {
+    this.size = size;
+  }
+
+  public double next(int val) {
+    ++count;
+    // calculate the new sum by shifting the window
+    queue.add(val);
+    int tail = count > size ? (int)queue.poll() : 0;
+
+    windowSum = windowSum - tail + val;
+
+    return windowSum * 1.0 / Math.min(size, count);
+  }
+}
