@@ -15,23 +15,24 @@
  */
 class Solution {
     public List<Integer> getLonelyNodes(TreeNode root) {
-        List<Integer>result = new LinkedList();
-        Queue<TreeNode>queue = new LinkedList();
-        queue.add(root);
-        while(!queue.isEmpty()){
-            TreeNode temp = queue.poll();
-            if(temp.left!=null&&temp.right!=null){
-                queue.add(temp.left);
-                queue.add(temp.right);
-            }else if(temp.left!=null&&temp.right==null){
-                result.add(temp.left.val);
-                queue.add(temp.left);
-            }
-            else if(temp.right!=null&&temp.left==null){
-                result.add(temp.right.val);
-                queue.add(temp.right);
-            }
-            
-        }return result;
+        List<Integer> result = new ArrayList<>();
+        
+        if (root != null) {
+            recursive(result, root.left, root);
+            recursive(result, root.right, root);
+        }
+        
+        return result;
+    }
+    
+    private void recursive(List<Integer> nodes, TreeNode node, TreeNode parent) {
+        if (node == null)
+            return;
+        
+        if (parent.left == null || parent.right == null)
+            nodes.add(node.val);
+        
+        recursive(nodes, node.left, node);
+        recursive(nodes, node.right, node);
     }
 }
