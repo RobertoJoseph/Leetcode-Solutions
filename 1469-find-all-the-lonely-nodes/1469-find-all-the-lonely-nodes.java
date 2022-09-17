@@ -14,25 +14,26 @@
  * }
  */
 class Solution {
-    public List<Integer> getLonelyNodes(TreeNode root) {
         List<Integer> result = new ArrayList<>();
+    
+    public List<Integer> getLonelyNodes(TreeNode root) {
         
         if (root != null) {
-            recursive(result, root.left, root);
-            recursive(result, root.right, root);
+            recursive(root.left, root);
+            recursive(root.right, root);
         }
         
         return result;
     }
     
-    private void recursive(List<Integer> nodes, TreeNode node, TreeNode parent) {
+    private void recursive(TreeNode node, TreeNode parent) {
         if (node == null)
             return;
         
         if (parent.left == null || parent.right == null)
-            nodes.add(node.val);
+            result.add(node.val);
         
-        recursive(nodes, node.left, node);
-        recursive(nodes, node.right, node);
+        recursive( node.left, node);
+        recursive( node.right, node);
     }
 }
