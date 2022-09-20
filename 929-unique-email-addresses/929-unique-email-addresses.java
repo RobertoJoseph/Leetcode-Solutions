@@ -1,33 +1,19 @@
 class Solution {
     public int numUniqueEmails(String[] emails) {
-        HashSet<String>hs = new HashSet<>();
-        int count =0;
-        for(int i =0; i<emails.length; i++){
-            StringBuilder sb = new StringBuilder();
-            int plus=0;
-            String work = emails[i];
-            for(int j=0; j<emails[i].length(); j++){
-                if(work.charAt(j)=='@')
-                    plus=1;
-                if(plus==1){
-                    sb.append(work.charAt(j));
-                }
-                else
-                if(plus==0){
-                    if(work.charAt(j)=='+'){
-                        plus=2;
-                    }else
-                      if(work.charAt(j)!='.')sb.append(work.charAt(j));
-                 }
-            }
-            System.out.println(sb);
-                
-            if(!hs.contains(sb.toString())){
-                count++;
-                hs.add(sb.toString());
-            }
-            
+        // hash set to store all the unique emails
+        Set<String> uniqueEmails = new HashSet<>();
+
+        for (String email : emails) {
+            // split into two parts local and domain
+            String[] parts = email.split("@");
+
+            // split local by '+'
+            String[] local = parts[0].split("\\+");
+
+            // remove all '.', and concatenate '@' and append domain
+            uniqueEmails.add(local[0].replace(".", "") + "@" + parts[1]);
         }
-        return count;
+
+        return uniqueEmails.size();
     }
 }
