@@ -4,14 +4,31 @@ class Solution {
         Set<String> uniqueEmails = new HashSet<>();
 
         for (String email : emails) {
-            // split into two parts local and domain
-            String[] parts = email.split("@");
+            StringBuilder cleanMail = new StringBuilder();
 
-            // split local by '+'
-            String[] local = parts[0].split("\\+");
+            // iterate over each character in email
+            for (int i = 0; i < email.length(); ++i) {
+                char currChar = email.charAt(i);
 
-            // remove all '.', and concatenate '@' and append domain
-            uniqueEmails.add(local[0].replace(".", "") + "@" + parts[1]);
+                // stop adding characters to localName
+                if (currChar == '+' || currChar == '@') break;
+
+                // add this character if not '.'
+                if (currChar != '.') cleanMail.append(currChar);
+            }
+
+            // compute domain name (substring from end to '@')
+            StringBuilder domainName = new StringBuilder();
+
+            for (int i = email.length() - 1; i >= 0; --i) {
+                char currChar = email.charAt(i);
+                domainName.append(currChar);
+                if (currChar == '@') break;
+            }
+
+            domainName = domainName.reverse();
+            cleanMail.append(domainName);
+            uniqueEmails.add(cleanMail.toString());
         }
 
         return uniqueEmails.size();
