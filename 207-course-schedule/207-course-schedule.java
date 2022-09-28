@@ -12,7 +12,8 @@ class Solution {
         List<List<Integer>> graph = new ArrayList<>();
         for (int i = 0; i < numCourses; i++)
             graph.add(new ArrayList<>());
-
+        
+        
         for (int[] requirement : prerequisites)
             graph.get(requirement[0]).add(requirement[1]);
         NodeState[]state = new NodeState[numCourses];
