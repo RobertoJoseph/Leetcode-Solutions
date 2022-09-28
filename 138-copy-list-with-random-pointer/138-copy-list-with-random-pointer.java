@@ -5,7 +5,7 @@ class Node {
     Node next;
     Node random;
 
-    public Node(int val,Node next , Node random) {
+    public Node(int val,Node next,Node random) {
         this.val = val;
         this.next = next;
         this.random = random;
@@ -15,49 +15,33 @@ class Node {
 
 class Solution {
     
-  HashMap<Node, Node> visited = new HashMap<Node, Node>();
+    HashMap<Node,Node>visited = new HashMap<>();
     
-    
-    
-    
-    
-    public Node getOrAddNode(Node n){
-        if(n==null)return null;
-        
-        if(visited.containsKey(n)){
-            return visited.get(n);
+    public Node getClonedNode(Node node){
+        if(node==null)return null;
+        if(visited.containsKey(node)){
+            return visited.get(node);
         }else{
-            visited.put(n,new Node(n.val));
-            return visited.get(n);
+            visited.put(node,new Node(node.val,null,null));
+            return visited.get(node);
         }
         
-        
-        
     }
-    
     public Node copyRandomList(Node head) {
         if(head==null)return null;
-        
         Node oldNode = head;
-        
-        
-        Node newNode = new Node(head.val);
-    
-        
+        Node newNode = new Node(oldNode.val);
         visited.put(oldNode,newNode);
-        
         while(oldNode!=null){
-            
-            newNode.next = this.getOrAddNode(oldNode.next);
-            newNode.random = this.getOrAddNode(oldNode.random);
-            
+            newNode.next = getClonedNode(oldNode.next);
+            newNode.random = getClonedNode(oldNode.random);
             newNode = newNode.next;
             oldNode = oldNode.next;
-            
-            
         }
-        return visited.get(head);
         
+        return visited.get(head);
        
     }
+    
+    
 }
