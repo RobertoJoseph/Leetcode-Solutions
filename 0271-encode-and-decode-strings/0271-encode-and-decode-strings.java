@@ -19,6 +19,7 @@ public class Codec {
     if (s.equals(d)) return new ArrayList();
 
     d = Character.toString((char)257);
-    return Arrays.asList(s.split(d, -1));
+      System.out.println(s);
+    return Arrays.asList(s.split(d,-1));
   }
 }
