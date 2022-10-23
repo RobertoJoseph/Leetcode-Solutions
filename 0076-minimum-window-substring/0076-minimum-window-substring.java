@@ -43,7 +43,7 @@ class Solution {
             }
 
             // Try and contract the window till the point where it ceases to be 'desirable'.
-            while (l <= r && formed == required) {
+            while ( formed == required) {
                 c = s.charAt(l);
                 // Save the smallest window until now.
                 if (ans[0] == -1 || r - l + 1 < ans[0]) {
